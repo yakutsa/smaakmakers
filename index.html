@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sergio's Smaakmakers Ebook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff; /* Adjust the color to match your design */
+    }
+
+    @media screen and (min-width: 768px) {
+      .mobile-img {
+        display: none;
+      }
+      .icons-and-ratings {
+        flex-direction: row;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .icons-and-ratings {
+        flex-direction: column;
+      }
+    }
+
+  /* iPad and similar devices */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* This targets the container of the text and image on medium devices */
+    .sm:flex-row {
+      flex-direction: row;
+    }
+
+    /* Adjust the padding on the content column to give more space */
+    .content-column {
+      padding: 1rem; /* Adjust the padding as needed */
+    }
+
+    /* Adjust the image size to prevent overlap */
+    .book-image-container img {
+      max-width: 100%; /* Limit the image width to prevent overflow */
+      height: auto; /* Maintain the aspect ratio */
+    }
+
+    /* Add some space between the text and image if needed */
+    .content-column, .book-image-container {
+      margin-right: 1rem; /* Adjust the right margin */
+      margin-left: 1rem; /* Adjust the left margin */
+    }
+  }
+
+  /* Custom mobile styles */
+  @media screen and (max-width: 639px) {
+    .mobile-hero {
+      background-image: url('mobile.png'); /* Path to your mobile image */
+      background-size: cover; /* Cover ensures full width */
+      background-position: center;
+      color: white; /* Ensures text is white */
+      width: 100%; /* Full width */
+      height: 300px; /* Fixed height of 300px */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Remove padding and margin from the mobile hero image specifically */
+    .mobile-hero {
+      padding: 0; /* Remove padding on mobile for the hero image */
+      margin: 0; /* Remove margins on mobile for the hero image */
+    }
+
+    /* Additional specificity for the image if it's within another container */
+    .mobile-hero > img {
+      width: 100%; /* Ensures the image is full width */
+      max-width: 100%; /* Ensures the image doesn't exceed its container */
+      height: auto; /* Maintain aspect ratio */
+    }
+  }
+
+  /* Hide the <img> tag on larger screens */
+  @media screen and (min-width: 640px) {
+    .mobile-img {
+      display: none;
+    }
+  }
+  </style>
+</head>
+<body class="relative text-black h-screen flex flex-col sm:flex-row">
+
+  <!-- Content Column -->
+  <div class="relative w-full sm:w-1/2 flex flex-col justify-center items-center sm:items-start p-4 sm:p-12 space-y-6 z-10  no-padding-on-mobile">
+    <div class="wave-pattern w-full h-32 sm:h-64 overflow-hidden absolute top-0 left-0">
+      <!-- Wave SVG or Image -->
+    </div>
+    <img src="dekamarkt-logo.png" alt="Dekamarkt Logo" class="h-16 sm:h-24 mb-2 sm:mb-0"> <!-- Adjust the path and size as needed -->
+    <div class="text-black flex items-center">
+      <span class="bg-[#a1c539] h-1 w-16 mr-2 inline-block"></span>
+      <span class="text-xs sm:text-sm uppercase tracking-widest">Een campagne van DekaMarkt</span>
+    </div>
+    <!-- Hero Section with Conditional Background -->
+    <div class="mobile-hero sm:bg-transparent w-full text-center sm:text-left sm:text-black">
+      <h1 class="text-4xl sm:text-5xl font-bold leading-tight">Sergio's Smaakmakers</h1>
+    </div>
+    <p class="text-base sm:text-lg text-center sm:text-left">
+      Als loyale DekaMarkt klant bieden wij jou dit prachtige e-book van Sergio Herman! Vul hieronder je e-mailadres in en download het gratis e-book!
+    </p>
+    <!-- Input Section -->
+    <div class="input-div text-black w-full sm:flex sm:flex-col mt-4">
+      <input id="email" type="email" placeholder="Voer je e-mailadres in"
+             class="text-black p-2 rounded border border-gray-300 mb-2 sm:mb-4 w-full md:w-auto md:max-w-md md:text-sm">
+      <button id="submitBtn" class="bg-[#a1c539] text-white rounded shadow px-4 py-2 w-full md:w-36 md:px-4 md:py-2">
+        Verzenden
+      </button>
+    </div>
+    <!-- Progress Section -->
+    <div class="progress-section mt-4 w-full" style="display: none;">
+      <p class="text-black mb-2">Een ogenblik geduld terwijl we uw gepersonaliseerde e-boek verwerken. Dit kan maximaal 1 minuut duren.</p>
+      <!-- Progress Bar with Label Inside -->
+      <div class="progress-bar w-full">
+        <div class="bg-gray-200 rounded-full">
+          <div id="progress-bar-inner" class="bg-[#a1c539] text-sm font-bold text-white text-center py-2 leading-none rounded-l-full" style="width: 0%;"> 0% </div>
+        </div>
+      </div>
+    </div>
+    <!-- Message Section -->
+    <div class="message-div text-black text-lg w-full flex flex-col mt-4" style="display: none;">
+      <!-- Authentication message will be displayed here -->
+    </div>
+    <!-- Icons and Ratings -->
+    <div class="icons-and-ratings text-black p-4 flex flex-col md:flex-row md:space-x-4 w-full">
+      <!-- Pages -->
+      <div class="flex items-center mb-4 md:mb-0">
+        <span class="bg-[#a1c539] text-white rounded-full p-2">
+          <i class="fas fa-book"></i>
+        </span>
+        <div class="ml-2 flex flex-col">
+          <span class="font-semibold">Pagina's</span>
+          <span>256 paginas</span>
+        </div>
+      </div>
+      <!-- Language -->
+      <div class="flex items-center mb-4 md:mb-0">
+        <span class="bg-[#a1c539] text-white rounded-full p-2">
+          <i class="fas fa-language"></i>
+        </span>
+        <div class="ml-2 flex flex-col">
+          <span class="font-semibold">Taal</span>
+          <span>Nederlands</span>
+        </div>
+      </div>
+      <!-- Ratings -->
+      <div class="flex items-center mb-4 md:mb-0">
+        <span class="bg-[#a1c539] text-white rounded-full p-2">
+          <i class="fas fa-star"></i>
+        </span>
+        <div class="ml-2 flex flex-col">
+          <span class="font-semibold">Ratings</span>
+          <span>4.3/5 (21 ratings)</span>
+        </div>
+      </div>
+    </div>
+    <div>
+        <a class="text-base sm:text-l text-center sm:text-left" href="https://webshop.dekamarkt.nl/contactus" target="_blank" style="text-decoration: underline; color: blue;">Klantenservice</a>
+    </div>
+    <div>
+      <p class="text-base sm:text-l text-center sm:text-left">Mogelijk gemaakt door <a href="https://www.boxplosive.nl" target="_blank" style="text-decoration: underline; color: blue;">Boxplosive</a></p>
+    </div>
+    </div>
+  </div>
+
+  <!-- Book Image Column -->
+  <div class="hidden sm:flex sm:w-1/2 justify-center items-center mt-4 sm:mt-0 book-image-container">
+    <!-- Book Image -->
+    <img src="img1.png" alt="Book Cover" class="max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl">
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
